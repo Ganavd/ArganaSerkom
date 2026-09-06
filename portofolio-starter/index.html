@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Argana — Junior Web Developer</title>
+
+  <!-- Font sederhana untuk tampilan portofolio pemula. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <span class="logo">argana<span class="logo-dot">.</span>dev</span>
+      <nav>
+        <a href="#tentang">Tentang</a>
+        <a href="#skill">Skill</a>
+        <a href="#proyek">Proyek</a>
+        <a href="#kontak">Kontak</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <p class="eyebrow">Junior Web Developer</p>
+        <h1>Membangun antarmuka yang jelas,<br />bukan cuma yang jalan.</h1>
+        <p class="hero-desc">
+          Siswa RPL yang fokus di alur kerja, UI/UX, dan struktur proyek —
+          sekarang belajar menuliskan itu semua jadi kode yang rapi.
+        </p>
+        <div class="hero-actions">
+          <a href="#proyek" class="btn btn-primary">Lihat proyek</a>
+          <a href="#kontak" class="btn btn-ghost">Hubungi saya</a>
+        </div>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-photo" role="img" aria-label="Ikon foto profil Argana">
+          <svg viewBox="0 0 120 120" aria-hidden="true">
+            <circle cx="60" cy="60" r="58" fill="#e5eef5" />
+            <circle cx="60" cy="45" r="20" fill="#4f7894" />
+            <path d="M25 101c5-22 18-33 35-33s30 11 35 33" fill="#4f7894" />
+          </svg>
+        </div>
+        <p class="profile-name">Argana</p>
+        <p class="profile-role">Siswa RPL &middot; Pemula Web Development</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TENTANG -->
+  <section id="tentang" class="section">
+    <div class="container">
+      <h2>Tentang saya</h2>
+      <p class="section-lead">
+        Saya siswa RPL yang terbiasa mengarahkan alur kerja proyek — dari
+        perencanaan fitur, alur pengguna, hingga tampilan antarmuka. Saat ini
+        saya sedang memperdalam sisi implementasi: menulis HTML, CSS, dan
+        JavaScript yang terstruktur dan bisa dipertanggungjawabkan.
+      </p>
+    </div>
+  </section>
+
+  <!-- SKILL: pakai list, bukan cuma teks berjejer, supaya semantik -->
+  <section id="skill" class="section section-alt">
+    <div class="container">
+      <h2>Yang sedang saya pelajari</h2>
+      <ul class="skill-grid">
+        <li class="skill-item">HTML Semantik</li>
+        <li class="skill-item">CSS (Flexbox &amp; Grid)</li>
+        <li class="skill-item">JavaScript Dasar</li>
+        <li class="skill-item">Struktur Proyek</li>
+        <li class="skill-item">Alur &amp; UX</li>
+        <li class="skill-item">Manajemen Proyek</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PROYEK: kartu untuk portofolio ini + link ke web toko usaha (diisi di Fase 3) -->
+  <section id="proyek" class="section">
+    <div class="container">
+      <h2>Proyek</h2>
+      <div class="project-grid">
+        <article class="project-card">
+          <p class="project-tag">Website statis</p>
+          <h3>Portofolio Pribadi</h3>
+          <p>Halaman ini — dibangun dengan HTML &amp; CSS murni, tanpa framework.</p>
+        </article>
+        <article class="project-card">
+          <p class="project-tag">Website dinamis</p>
+          <h3>Toko Rajut Nusantara</h3>
+          <p>Katalog produk rajutan dengan filter kategori dan keranjang sederhana.</p>
+          <a href="../toko-rajut-starter/index.html" class="project-link">Buka toko &rarr;</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- KONTAK -->
+  <section id="kontak" class="section section-alt">
+    <div class="container">
+      <h2>Kontak</h2>
+      <p class="section-lead">Bisa dihubungi lewat:</p>
+      <ul class="contact-list">
+        <li>Email — argana@contoh.dev</li>
+        <li>GitHub — github.com/argana</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2026 Argana. Dibuat untuk latihan Uji Sertifikasi Kompetensi JWD.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,471 @@
+:root {
+  --bg: #fbf6ee;
+  --surface: #ffffff;
+  --text: #2b241c;
+  --muted: #7a6f5f;
+  --accent: #a9542f;   /* terracotta hangat, cocok tema rajutan/kriya */
+  --accent-soft: #f1e2cf;
+  --border: #e6dac4;
+
+  --font-display: "Fraunces", serif;
+  --font-body: "Inter", sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+a { color: inherit; text-decoration: none; }
+h1, h2 { font-family: var(--font-display); line-height: 1.25; }
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* HEADER */
+.site-header {
+  border-bottom: 1px solid var(--border);
+  padding: 18px 0;
+  background: var(--surface);
+}
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.header-actions {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.logo { font-family: var(--font-display); font-weight: 600; font-size: 1.2rem; }
+.logo-accent { color: var(--accent); }
+
+/* Tombol "Tambah Produk Baru" di header */
+.btn-tambah {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 24px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn-tambah:hover { background: #8a4325; }
+
+.back-link {
+  display: block;
+  width: max-content;
+  color: var(--muted);
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+
+.back-nav {
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.back-nav .container {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.back-link:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+/* Panah kecil, diputar 180deg lewat JS saat panel dibuka */
+.chevron {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.chevron.is-open { transform: rotate(180deg); }
+
+/* =====================================================================
+   PANEL TAMBAH/EDIT PRODUK (accordion)
+   Trik animasi buka-tutup: transisi di properti max-height, BUKAN
+   display:none/block (yang tidak bisa dianimasikan). Saat tertutup,
+   max-height dikecilkan ke 0 dan overflow disembunyikan.
+===================================================================== */
+.add-panel {
+  background: var(--accent-soft);
+  overflow: hidden;
+  max-height: 600px;
+  transition: max-height 0.25s ease, padding 0.25s ease;
+  padding: 24px 0;
+}
+
+.add-panel.is-closed {
+  max-height: 0;
+  padding: 0;
+}
+
+/* =====================================================================
+   MODAL / POP UP — sekarang cuma dipakai untuk 2 hal: konfirmasi hapus
+   dan detail produk (form tambah/edit balik jadi panel accordion di
+   atas, bukan pop up).
+===================================================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(43, 36, 28, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.modal-overlay.is-hidden { display: none; }
+
+.modal-box {
+  background: var(--surface);
+  border-radius: 14px;
+  padding: 28px;
+  max-width: 520px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--muted);
+}
+
+.modal-close:hover { color: var(--text); }
+
+.modal-title { font-size: 1.3rem; margin-bottom: 16px; padding-right: 24px; }
+.modal-desc { color: var(--muted); margin-bottom: 20px; font-size: 0.9rem; }
+
+/* --- Pop up konfirmasi hapus: kotaknya sengaja lebih kecil --- */
+.modal-box-kecil { max-width: 380px; }
+
+.modal-hapus-actions { display: flex; justify-content: flex-end; gap: 10px; }
+
+.btn-hapus {
+  background: #c0392b;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-hapus:hover { background: #a5301f; }
+
+/* --- Pop up detail produk: gambar kiri, isi kanan --- */
+.modal-box-detail {
+  max-width: 720px;
+  display: flex;
+  gap: 24px;
+  padding: 24px;
+}
+
+.detail-gambar { flex: 0 0 260px; }
+
+.detail-gambar img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 10px;
+  background: var(--accent-soft);
+  margin-bottom: 12px;
+}
+
+.btn-unduh {
+  display: block;
+  text-align: center;
+  background: var(--text);
+  color: #fff;
+  padding: 9px 0;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.btn-unduh:hover { background: var(--accent); }
+
+.detail-isi { flex: 1; display: flex; flex-direction: column; padding-top: 4px; }
+.detail-isi h2 { font-size: 1.3rem; margin: 8px 0 6px; }
+.detail-harga { color: var(--accent); font-weight: 700; font-size: 1.1rem; margin-bottom: 12px; }
+.detail-deskripsi { color: var(--muted); font-size: 0.92rem; line-height: 1.6; }
+
+/* Di layar sempit, gambar & isi ditumpuk (bukan sejajar) */
+@media (max-width: 560px) {
+  .modal-box-detail { flex-direction: column; }
+  .detail-gambar { flex: none; }
+}
+
+.add-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.field-wide { grid-column: 1 / -1; }
+
+.field label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--text);
+}
+
+.field input[type="text"],
+.field input[type="number"],
+.field input[type="url"],
+.field input[type="file"],
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  background: var(--surface);
+}
+
+.preview-gambar {
+  display: none;
+  margin-top: 10px;
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.add-form-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.btn-simpan {
+  background: var(--text);
+  color: #fff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-simpan:hover { background: var(--accent); }
+
+.btn-batal {
+  background: transparent;
+  border: 1px solid var(--border);
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--muted);
+  display: none;
+}
+
+.status-msg { font-size: 0.85rem; }
+
+/* =====================================================================
+   TOOLBAR: search box (setengah lebar) + dropdown kategori (kanan)
+===================================================================== */
+.toolbar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.search-box {
+  flex: 1 1 300px;
+  max-width: 50%;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  background: var(--surface);
+}
+
+.filter-select {
+  flex: 0 1 220px;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  background: var(--surface);
+  color: var(--text);
+}
+
+@media (max-width: 640px) {
+  .search-box, .filter-select { max-width: 100%; flex: 1 1 100%; }
+}
+
+.empty-msg { display: none; color: var(--muted); text-align: center; padding: 40px 0; }
+
+/* HERO */
+.hero { padding: 56px 0 40px; max-width: 640px; }
+.eyebrow { color: var(--accent); font-weight: 500; margin-bottom: 10px; }
+.hero h1 { font-size: 2rem; margin-bottom: 16px; }
+.hero-desc { color: var(--muted); }
+
+/* CATALOG */
+.catalog { padding: 24px 0 72px; }
+
+/* =====================================================================
+   PRODUCT GRID — ala Shopee: gambar produk jadi elemen paling menonjol,
+   info teks ringkas di bawahnya. auto-fill + minmax bikin jumlah kolom
+   MENYESUAIKAN SENDIRI ke lebar layar (1 kolom di HP kecil, sampai 6
+   kolom di layar lebar) — tanpa perlu menulis @media berkali-kali untuk
+   tiap ukuran.
+===================================================================== */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+.product-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.product-thumb {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: var(--accent-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.product-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+.product-thumb .placeholder {
+  font-family: var(--font-display);
+  color: var(--accent);
+  font-size: 0.8rem;
+}
+
+.product-body { padding: 12px; display: flex; flex-direction: column; flex-grow: 1; }
+
+.product-card .category-tag {
+  font-size: 0.72rem;
+  color: var(--accent);
+  background: var(--accent-soft);
+  align-self: flex-start;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-bottom: 6px;
+}
+
+.product-card h3 {
+  font-size: 0.92rem;
+  font-family: var(--font-body);
+  font-weight: 500;
+  margin-bottom: 6px;
+  /* Batasi nama produk maksimal 2 baris, sisanya "..." — supaya tinggi
+     card tetap rapi walau ada nama produk yang panjang. */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.product-card .price { color: var(--accent); font-weight: 700; font-size: 0.98rem; margin-top: auto; }
+
+/* Tombol edit/hapus kecil, muncul di pojok kanan atas gambar.
+   Ditaruh di sini (bukan di halaman terpisah) sesuai keputusan: semua
+   orang yang buka situs ini boleh langsung coba edit/hapus produk. */
+.card-actions {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  gap: 6px;
+}
+
+.card-actions button {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-actions button:hover { background: #fff; }
+
+/* FOOTER */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 24px 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .product-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .product-grid { grid-template-columns: 1fr; }
+}

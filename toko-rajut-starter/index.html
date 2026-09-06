@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Toko Rajut Nusantara</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fraunces:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <span class="logo">Toko Rajut <span class="logo-accent">Nusantara</span></span>
+
+      <div class="header-actions">
+        <button type="button" id="btn-toggle-form" class="btn-tambah">
+          <span>Tambah Produk Baru</span>
+          <span class="chevron" id="chevron-icon">&#9662;</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="back-nav" aria-label="Navigasi kembali">
+    <div class="container">
+      <a href="../portofolio-starter/index.html" class="back-link">Kembali ke Portofolio</a>
+    </div>
+  </nav>
+
+  <!-- =====================================================================
+       PANEL TAMBAH PRODUK — accordion, nempel di bawah header.
+       KHUSUS TAMBAH PRODUK BARU SAJA (bukan untuk edit — edit ada di
+       pop up terpisah di bawah, supaya sesuai yang diminta: tombol
+       tambah di navbar = accordion, ikon edit di kartu = pop up).
+  ===================================================================== -->
+  <section class="add-panel is-closed" id="add-panel">
+    <div class="container">
+      <form id="form-tambah" class="add-form">
+        <div class="add-form-grid">
+          <div class="field">
+            <label for="tambah-nama">Nama produk</label>
+            <input type="text" id="tambah-nama" placeholder="Contoh: Sweater Rajut Oversize" required />
+          </div>
+
+          <div class="field">
+            <label for="tambah-kategori">Kategori</label>
+            <select id="tambah-kategori" required></select>
+          </div>
+
+          <div class="field">
+            <label for="tambah-harga">Harga (Rp)</label>
+            <input type="number" id="tambah-harga" min="0" placeholder="0" required />
+          </div>
+
+          <div class="field field-wide">
+            <label for="tambah-deskripsi">Deskripsi</label>
+            <textarea id="tambah-deskripsi" rows="2" placeholder="Ceritakan bahan, ukuran, atau keunikan produk ini"></textarea>
+          </div>
+
+          <div class="field field-wide">
+            <label for="tambah-gambar-url">Foto produk - Link URL gambar</label>
+            <input type="url" id="tambah-gambar-url" placeholder="https://contoh.com/gambar.jpg" />
+            <label for="tambah-gambar">Foto produk - Upload file</label>
+            <input type="file" id="tambah-gambar" accept=".png,.jpg,.jpeg,image/png,image/jpeg" />
+            <img id="tambah-preview" class="preview-gambar" alt="" />
+          </div>
+        </div>
+
+        <div class="add-form-actions">
+          <button type="submit" id="tambah-submit" class="btn-simpan">Simpan Produk</button>
+          <span id="tambah-status" class="status-msg"></span>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Kerajinan Tangan &middot; Rajutan Asli</p>
+      <h1>Rajutan yang dibuat helai demi helai,<br />bukan diproduksi massal.</h1>
+      <p class="hero-desc">
+        Setiap produk dirajut tangan oleh pengrajin lokal. Cari atau pilih
+        kategori di bawah, klik kartu produk untuk lihat detailnya.
+      </p>
+    </div>
+  </section>
+
+  <section class="catalog">
+    <div class="container">
+      <div class="toolbar">
+        <input type="text" id="input-cari" class="search-box" placeholder="Cari nama produk..." />
+        <select id="filter-kategori" class="filter-select" aria-label="Filter kategori">
+          <option value="">Semua kategori</option>
+        </select>
+      </div>
+
+      <!-- Diisi oleh renderProduk() di app.js. Tiap kartu bisa diklik
+           untuk buka pop up detail. -->
+      <div class="product-grid" id="product-grid"></div>
+
+      <p class="empty-msg" id="empty-msg">Tidak ada produk yang cocok.</p>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; 2026 Toko Rajut Nusantara.</p>
+    </div>
+  </footer>
+
+  <!-- =====================================================================
+       POP UP: EDIT PRODUK
+       TERPISAH dari form tambah di atas (id-id semua beda: prefix
+       "edit-"), sesuai keputusan: ikon pensil di kartu = pop up,
+       tombol tambah di navbar = accordion.
+  ===================================================================== -->
+  <div class="modal-overlay is-hidden" id="modal-edit">
+    <div class="modal-box">
+      <button type="button" class="modal-close" id="btn-tutup-edit" aria-label="Tutup">&times;</button>
+      <h2 class="modal-title">Edit Produk</h2>
+
+      <form id="form-edit">
+        <input type="hidden" id="edit-id" value="" />
+
+        <div class="add-form-grid">
+          <div class="field">
+            <label for="edit-nama">Nama produk</label>
+            <input type="text" id="edit-nama" required />
+          </div>
+
+          <div class="field">
+            <label for="edit-kategori">Kategori</label>
+            <select id="edit-kategori" required></select>
+          </div>
+
+          <div class="field">
+            <label for="edit-harga">Harga (Rp)</label>
+            <input type="number" id="edit-harga" min="0" required />
+          </div>
+
+          <div class="field field-wide">
+            <label for="edit-deskripsi">Deskripsi</label>
+            <textarea id="edit-deskripsi" rows="2"></textarea>
+          </div>
+
+          <div class="field field-wide">
+            <label for="edit-gambar-url">Ganti foto - Link URL gambar</label>
+            <input type="url" id="edit-gambar-url" placeholder="https://contoh.com/gambar.jpg" />
+            <label for="edit-gambar">Ganti foto - Upload file</label>
+            <input type="file" id="edit-gambar" accept=".png,.jpg,.jpeg,image/png,image/jpeg" />
+            <img id="edit-preview" class="preview-gambar" alt="" />
+          </div>
+        </div>
+
+        <div class="add-form-actions">
+          <button type="submit" id="edit-submit" class="btn-simpan">Simpan Perubahan</button>
+          <span id="edit-status" class="status-msg"></span>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       POP UP: KONFIRMASI HAPUS
+       Menggantikan window.confirm() bawaan browser dengan pop up custom
+       yang lebih konsisten dan sesuai desain toko.
+  ===================================================================== -->
+  <div class="modal-overlay is-hidden" id="modal-hapus">
+    <div class="modal-box modal-box-kecil">
+      <button type="button" class="modal-close" id="btn-tutup-hapus" aria-label="Tutup">&times;</button>
+      <h2 class="modal-title">Hapus produk ini?</h2>
+      <p class="modal-desc">Tindakan ini tidak bisa dibatalkan setelah disimpan.</p>
+      <div class="modal-hapus-actions">
+        <button type="button" id="btn-batal-hapus" class="btn-batal">Batal</button>
+        <button type="button" id="btn-konfirmasi-hapus" class="btn-hapus">Ya, Hapus</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       POP UP: DETAIL PRODUK
+       Muncul saat kartu produk diklik. Kiri = gambar (+ tombol unduh),
+       kanan = judul, kategori, deskripsi, harga — informasi yang
+       sebelumnya TIDAK ditampilkan di kartu (kartu cuma judul & harga).
+  ===================================================================== -->
+  <div class="modal-overlay is-hidden" id="modal-detail">
+    <div class="modal-box modal-box-detail">
+      <button type="button" class="modal-close" id="btn-tutup-detail" aria-label="Tutup">&times;</button>
+
+      <div class="detail-gambar">
+        <img id="detail-gambar-img" src="" alt="" />
+        <a id="detail-link-unduh" class="btn-unduh" href="#" download>Unduh Gambar</a>
+      </div>
+
+      <div class="detail-isi">
+        <span class="category-tag" id="detail-kategori"></span>
+        <h2 id="detail-nama"></h2>
+        <p class="detail-harga" id="detail-harga"></p>
+        <p class="detail-deskripsi" id="detail-deskripsi"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

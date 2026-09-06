@@ -1,0 +1,299 @@
+/* ===========================================
+   1. VARIABEL WARNA & TIPOGRAFI
+   Ditaruh di :root supaya bisa dipakai di seluruh file.
+   Ini praktik "best practice": ganti warna cukup di satu tempat.
+=========================================== */
+:root {
+  --bg: #f7f9fb;
+  --bg-alt: #edf3f7;
+  --text: #263746;
+  --muted: #62717d;
+  --accent: #3f6f8a;
+  --accent-soft: #dceaf2;
+  --border: #d5e0e7;
+
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+}
+
+/* ===========================================
+   2. RESET DASAR
+   Supaya semua browser mulai dari titik yang sama.
+=========================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  line-height: 1.2;
+}
+
+/* Container: membatasi lebar konten & memberi jarak kiri-kanan */
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ===========================================
+   3. HEADER
+=========================================== */
+.site-header {
+  border-bottom: 1px solid var(--border);
+  padding: 18px 0;
+  background: #fff;
+}
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.logo-dot {
+  color: var(--accent);
+}
+
+nav a {
+  margin-left: 24px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+nav a:hover {
+  color: var(--accent);
+}
+
+/* HERO */
+.hero {
+  padding: 72px 0;
+  background: #fff;
+}
+
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.eyebrow {
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.hero-text h1 {
+  font-size: 2.3rem;
+  margin-bottom: 20px;
+}
+
+.hero-desc {
+  color: var(--muted);
+  max-width: 46ch;
+  margin-bottom: 32px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 14px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 22px;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn-ghost {
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+/* Ikon foto profil hardcoded di HTML, tanpa input yang bisa diubah. */
+.profile-card {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 28px;
+  text-align: center;
+}
+
+.profile-photo {
+  width: 180px;
+  margin: 0 auto 18px;
+}
+
+.profile-photo svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.profile-name {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.profile-role {
+  color: var(--muted);
+  font-size: 0.88rem;
+  margin-top: 4px;
+}
+
+/* ===========================================
+   5. SECTION UMUM
+=========================================== */
+.section {
+  padding: 60px 0;
+}
+
+.section-alt {
+  background: var(--bg-alt);
+}
+
+.section h2 {
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+}
+
+.section-lead {
+  color: var(--muted);
+  max-width: 60ch;
+}
+
+/* ===========================================
+   6. SKILL GRID
+=========================================== */
+.skill-grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.skill-item {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 14px 16px;
+  font-size: 0.9rem;
+  background: #fff;
+}
+
+/* ===========================================
+   7. PROJECT GRID
+=========================================== */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.project-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px;
+}
+
+.project-tag {
+  color: var(--accent);
+  font-size: 0.8rem;
+  margin-bottom: 8px;
+}
+
+.project-card h3 {
+  margin-bottom: 10px;
+  font-size: 1.15rem;
+}
+
+.project-card p {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.project-link {
+  display: inline-block;
+  margin-top: 14px;
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.project-link:hover {
+  text-decoration: underline;
+}
+
+.project-card:hover {
+  border-color: var(--accent);
+}
+
+/* ===========================================
+   8. KONTAK & FOOTER
+=========================================== */
+.contact-list {
+  list-style: none;
+  color: var(--muted);
+}
+
+.contact-list li {
+  margin-top: 8px;
+}
+
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 24px 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* ===========================================
+   9. RESPONSIVE
+   Di bawah 768px, layout hero & grid ditumpuk vertikal.
+=========================================== */
+@media (max-width: 768px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .skill-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+
+  nav a {
+    margin-left: 16px;
+  }
+}

@@ -1,5 +1,9 @@
 {
   "redirects": [
-    { "source": "/", "destination": "/toko-rajut-starter/index.html/", "permanent": false }
+    {
+      "source": "/",
+      "destination": "/portofolio-starter/index.html",
+      "permanent": false
+    }
   ]
 }
